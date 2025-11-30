@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Disease Risk Assessment</title>
+    <style>
+        /* --- General Body & Font Styles --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- Main Form Container --- */
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 40, 100, 0.12);
+            width: 100%;
+            max-width: 900px; /* Increased width for more fields */
+            padding: 30px 40px;
+            box-sizing: border-box;
+        }
+
+        /* --- Header --- */
+        header h1 {
+            color: #1a3b5d;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        header p {
+            color: #5a7184;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* --- Fieldset for Grouping --- */
+        fieldset {
+            border: 1px solid #dce6f1;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        legend {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0d2c4e;
+            padding: 0 10px;
+        }
+
+        /* --- Grid Layout for Inputs --- */
+        .input-grid {
+            display: grid;
+            /* Auto-fit columns, with a min width of 250px */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 22px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* --- Input & Label Styles --- */
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #334d6e;
+            margin-bottom: 8px;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #cdd7e1;
+            border-radius: 6px;
+            background-color: #f8fafc;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #2779ff;
+            box-shadow: 0 0 0 3px rgba(39, 121, 255, 0.2);
+        }
+
+        /* --- Checkbox Styles --- */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            background-color: #f8fafc;
+            border: 1px solid #dce6f1;
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .checkbox-group:hover {
+            background-color: #f1f5f9;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            accent-color: #2779ff;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: #334d6e;
+            flex-grow: 1;
+        }
+
+        /* --- Submit Button --- */
+        .submit-button {
+            background: linear-gradient(135deg, #2779ff, #0a4ecb);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 121, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <header>
+            <h1>Multi-Disease Risk Assessment</h1>
+            <p>Please fill out the form below with your information.</p>
+        </header>
+
+        <form action="#" method="POST">
+
+            <fieldset>
+                <legend>Section 1: Patient Demographics</legend>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" placeholder="e.g., 52" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="sex">Sex</label>
+                        <select id="sex" name="sex" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group" style="padding-top: 15px; padding-bottom: 15px;">
+                        <input type="checkbox" id="obesity" name="obesity" value="1">
+                        <label for="obesity">Are you clinically obese?</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Section 2: Lab Report & Vitals</legend>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="systolic_bp">Systolic Blood Pressure</label>
+                        <input type="number" id="systolic_bp" name="systolic_bp" placeholder="e.g., 130" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="diastolic_bp">Diastolic Blood Pressure</label>
+                        <input type="number" id="diastolic_bp" name="diastolic_bp" placeholder="e.g., 85" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="cholesterol">Total Cholesterol</label>
+                        <select id="cholesterol" name="cholesterol" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option value="1">Normal</option>
+                            <option value="2">Above Normal</option>
+                            <option value="3">Well Above Normal</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="glucose">Fasting Blood Sugar</label>
+                        <select id="glucose" name="glucose" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option value="1">Normal</option>
+                            <option value="2">Above Normal</option>
+                            <option value="3">Well Above Normal</option>
+                        </select>
+                    </div>
+                     <div class="input-group">
+                        <label for="albumin">Blood Albumin (g/dL)</label>
+                        <input type="number" step="0.1" id="albumin" name="albumin" placeholder="e.g., 4.0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="bilirubin">Total Bilirubin (mg/dL)</label>
+                        <input type="number" step="0.1" id="bilirubin" name="bilirubin" placeholder="e.g., 0.8" required>
+                    </div>
+                     <div class="input-group">
+                        <label for="alp">Alkaline Phosphatase (ALP)</label>
+                        <input type="number" id="alp" name="alp" placeholder="e.g., 80" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="urine_sg">Urine Specific Gravity</label>
+                        <input type="number" step="0.001" id="urine_sg" name="urine_sg" placeholder="e.g., 1.015" required>
+                    </div>
+                     <div class="input-group">
+                        <label for="urine_sugar">Urine Sugar</label>
+                        <select id="urine_sugar" name="urine_sugar" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option value="0">Normal</option>
+                            <option value="1">Abnormal</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="urine_albumin">Urine Albumin</label>
+                        <select id="urine_albumin" name="urine_albumin" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option value="0">Normal</option>
+                            <option value="1">Abnormal</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Section 3: Patient History</legend>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="ever_married">Ever Married?</label>
+                        <select id="ever_married" name="ever_married" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="work_type">Work Type</label>
+                        <select id="work_type" name="work_type" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option value="Private">Private</option>
+                            <option value="Self-employed">Self-employed</option>
+                            <option value="Govt_job">Govt_job</option>
+                            <option value="children">children</option>
+                            <option value="Never_worked">Never_worked</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="residence_type">Residence Type</label>
+                        <select id="residence_type" name="residence_type" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option value="Urban">Urban</option>
+                            <option value="Rural">Rural</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="smoking_status">Smoking Status</label>
+                        <select id="smoking_status" name="smoking_status" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option value="never smoked">Never Smoked</option>
+                            <option value="formerly smoked">Formerly Smoked</option>
+                            <option value="smokes">Smokes</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="checkbox-grid" style="margin-top: 20px;">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="history_bp" name="history_bp" value="1">
+                        <label for="history_bp">History of High Blood Pressure?</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="history_heart" name="history_heart" value="1">
+                        <label for="history_heart">Known Existing Heart Condition?</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="is_active" name="is_active" value="1">
+                        <label for="is_active">Are you Physically Active?</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Section 4: Current Symptoms (Check all that apply)</legend>
+                <div class="checkbox-grid">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="symp_chest_pain" name="symp_chest_pain" value="1">
+                        <label for="symp_chest_pain">Experiencing Chest Pain</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="symp_short_breath" name="symp_short_breath" value="1">
+                        <label for="symp_short_breath">Shortness of Breath</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="symp_thirst_hunger" name="symp_thirst_hunger" value="1">
+                        <label for="symp_thirst_hunger">Excessive Thirst or Hunger</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="symp_urination" name="symp_urination" value="1">
+                        <label for="symp_urination">Frequent Urination</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="symp_numbness" name="symp_numbness" value="1">
+                        <label for="symp_numbness">Sudden Numbness / Weakness</label>
+                    </div>
+                     <div class="checkbox-group">
+                        <input type="checkbox" id="symp_confusion" name="symp_confusion" value="1">
+                        <label for="symp_confusion">Sudden Confusion / Trouble Speaking</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="symp_headache" name="symp_headache" value="1">
+                        <label for="symp_headache">Sudden, Severe Headache</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="symp_swelling" name="symp_swelling" value="1">
+                        <label for="symp_swelling">Swelling in Legs / Ankles</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="symp_jaundice" name="symp_jaundice" value="1">
+                        <label for="symp_jaundice">Yellowing Skin / Eyes (Jaundice)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="symp_nausea" name="symp_nausea" value="1">
+                        <label for="symp_nausea">Persistent Nausea / Vomiting</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="symp_fatigue" name="symp_fatigue" value="1">
+                        <label for="symp_fatigue">Chronic Fatigue</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="submit-button">Predict Risk</button>
+
+        </form>
+    </div>
+<script>
+        // This function will be called when the form is submitted
+        async function handleFormSubmit(event) {
+            event.preventDefault(); // Stop the form from reloading the page
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = {};
+
+            // Convert form data to a simple object, handling checkboxes
+            formData.forEach((value, key) => {
+                // Check if it's a checkbox
+                if (form.elements[key] && form.elements[key].type === 'checkbox') {
+                    // We only send '1' if it's checked, otherwise it won't be in formData
+                    data[key] = 1;
+                } else {
+                    // Try to convert to number, else keep as string
+                    data[key] = isNaN(Number(value)) ? value : Number(value);
+                }
+            });
+
+            // Handle unchecked checkboxes (which don't appear in FormData)
+            const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                if (!cb.checked) {
+                    data[cb.name] = 0; // Send '0' if not checked
+                }
+            });
+            
+            // Show a loading message
+            const submitButton = form.querySelector('.submit-button');
+            submitButton.textContent = 'Predicting...';
+            submitButton.disabled = true;
+
+            try {
+                // Send the data to your Flask backend's /predict route
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const results = await response.json();
+
+                if (response.ok) {
+                    // Create a nice alert message with the results
+                    let resultMessage = "--- Prediction Results ---\n\n";
+                    resultMessage += `Heart Disease Risk: ${results.heart_risk}%\n`;
+                    resultMessage += `Kidney Disease Risk: ${results.kidney_risk}%\n`;
+                    resultMessage += `Liver Disease Risk: ${results.liver_risk}%\n`;
+                    resultMessage += `Stroke Risk: ${results.stroke_risk}%\n`;
+                    resultMessage += `Diabetes Risk: ${results.diabetes_risk}%\n\n`;
+                    resultMessage += "Disclaimer: This is an AI prediction and not a medical diagnosis.";
+                    
+                    alert(resultMessage);
+                } else {
+                    throw new Error(results.error || 'An unknown error occurred.');
+                }
+
+            } catch (error) {
+                console.error('Prediction failed:', error);
+                alert(`Error: ${error.message}`);
+            } finally {
+                // Reset the button
+                submitButton.textContent = 'Predict Risk';
+                submitButton.disabled = false;
+            }
+        }
+
+        // Attach this function to your form's submit event
+        const form = document.querySelector('form');
+        form.addEventListener('submit', handleFormSubmit);
+    </script>
+</body>
+</html>
